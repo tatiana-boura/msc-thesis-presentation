@@ -1,5 +1,5 @@
 \documentclass[10pt, aspectratio=169]{beamer}
-
+\PassOptionsToPackage{table,xcdraw}{xcolor}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{subcaption}
@@ -15,6 +15,9 @@
 \usepackage{multirow}      % For merging rows in tables
 \usepackage{colortbl}      % For coloring cells
 \usepackage[table,xcdraw]{xcolor}  % For extended color options in tables
+
+\usepackage{fqsstyle/beamerthemefqs}
+\usepackage{fqsstyle/beamercolorthemefqs}
 
 \input{fqsstyle/init.tex}
 
@@ -1236,11 +1239,38 @@ Actions available for the \colorbf{agents}:
 
 
 \begin{frame}{Results - \textcolor{umOrange}{Complex} to \textcolor{umBlueLighter}{Simple}}
+\begin{table}[H]
+	\centering
+	\scalebox{0.7}{
+		\begin{tabular}{p{1.6cm}p{1.2cm}p{1.2cm}p{1.6cm}p{1.8cm}p{1.2cm}p{1.2cm}}
+			\toprule
+			 \multicolumn{7}{c}{\textbf{Individual F1-micro}} \\
+    \midrule
+		\cellcolor{umOrange!80}\textbf{movaway} & \cellcolor{umOrange!80}\textbf{stop} & \cellcolor{umOrange!80}\textbf{other} & \cellcolor{umBlueLighter!80}\textbf{vehlane} & \cellcolor{umBlueLighter!80}\textbf{incomlane} & \cellcolor{umBlueLighter!80}\textbf{jun} & \cellcolor{umBlueLighter!80}\textbf{other} \\
+			\midrule
+			  0.69 & 0.634 & 0.457 & 0.845 & 0.515 & 0.544 & 0.441\\
+			\bottomrule
+		\end{tabular}
+	}
+\end{table}
 
-\end{frame}
+\vspace{1em}
+\colorbf{Reminder}: \textit{When trained on simple events}
 
-\begin{frame}
-
+\begin{table}[H]
+	\centering
+	\scalebox{0.7}{
+		\begin{tabular}{p{1.6cm}p{1.2cm}p{1.2cm}p{1.6cm}p{1.8cm}p{1.2cm}p{1.2cm}}
+			\toprule
+			 \multicolumn{7}{c}{\textbf{Avg. Individual F1-micro}} \\
+    \midrule
+		\cellcolor{umOrange!80}\textbf{movaway} & \cellcolor{umOrange!80}\textbf{stop} & \cellcolor{umOrange!80}\textbf{other} & \cellcolor{umBlueLighter!80}\textbf{vehlane} & \cellcolor{umBlueLighter!80}\textbf{incomlane} & \cellcolor{umBlueLighter!80}\textbf{jun} & \cellcolor{umBlueLighter!80}\textbf{other} \\
+			\midrule
+			  0.98 & 0.86 & 0.86 & 0.77 & 0.82 & 0.91 & 0.72\\
+			\bottomrule
+		\end{tabular}
+	}
+\end{table}
 \end{frame}
 
 \section{Conclusions and Future Work}
@@ -1251,8 +1281,22 @@ Actions available for the \colorbf{agents}:
     \end{frame}
 }
 
+\begin{frame}{Conclusions}
+    \begin{itemize}
+        \setlength{\itemsep}{13pt}
+        \item NeSy has better performance on average
+        \item But, undeniably, performs the best on \textbf{smaller} models \textit{contrary} to the neural baseline
+        \item Its performance and training time depends strongly on the automaton used
+        \item Also, it seems to be performing better for more compact automata
+        \end{itemize}
+    \end{frame}
 
-
+\begin{frame}{Future Work}
+    \begin{itemize}
+        \setlength{\itemsep}{13pt}
+        \item
+        \end{itemize}
+    \end{frame}
  
 \begin{frame}
     \begin{center}
