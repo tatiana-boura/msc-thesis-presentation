@@ -1,0 +1,1 @@
+$ENV{'TEXINPUTS'}='./fqsstyle//:' . $ENV{'TEXINPUTS'};
