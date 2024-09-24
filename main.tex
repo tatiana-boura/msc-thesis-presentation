@@ -87,8 +87,8 @@ NCSR Demokritos \& University of Piraeus}
         \setlength{\itemsep}{12pt}
         \item \textcolor{umBlueLighter}{Complex event recognition (CER)} involves efficiently identifying spatio (temporal) events within Big Data streams 
         \item CER systems use well-defined theoretical frameworks, such as (symbolic) automata
-        \item Some CER systems require the use of \textcolor{umBlueLighter}{deep learning} (\textit{e.g. computer vision})
-        \item To enhance the systems' performace, \textcolor{umBlueLighter}{Neuro-Symbolic Artificial Intelligence (NeSy)} methods are being used
+        \item In some case processing of \textbf{sub-symbolic streams} is required
+        \item To enhance the systems' performance, \textcolor{umBlueLighter}{Neuro-Symbolic Artificial Intelligence (NeSy)} methods are being used
         \item In this work we introduce a NeSy CER framework which we evaluated on the autonomous driving domain
     \end{itemize}
 \end{frame}
@@ -972,7 +972,7 @@ Actions available for the \colorbf{agents}:
     \begin{itemize}
         \setlength{\itemsep}{3pt}
         \item (a) Parameter count skyrockets;
-        \item (b) results are similar
+        \item (b) Results are similar
     \end{itemize}
     \end{itemize}
 \end{frame}
@@ -1033,7 +1033,7 @@ Actions available for the \colorbf{agents}:
     \setlength{\itemsep}{13pt}
     \item We selected a data split to evaluate the loss function and NeSy probability handling
     \item Evaluations were then conducted on other splits for all automata
-    \item The presented evaluation metric is F1-micro
+    \item The presented evaluation metric is \textbf{F1-micro}
     \end{itemize}
 \end{frame}
 
@@ -1138,6 +1138,7 @@ Actions available for the \colorbf{agents}:
 \end{frame}
 
 \begin{frame}{Results - Baseline vs NeSy}
+    \colorbf{[Cross-Validation]} :
 \begin{table}[H]
 	\centering
 	\scalebox{1.0}{
@@ -1285,7 +1286,7 @@ Actions available for the \colorbf{agents}:
     \begin{itemize}
         \setlength{\itemsep}{13pt}
         \item NeSy has better performance on average
-        \item But, undeniably, performs the best on \textbf{smaller} models \textit{contrary} to the neural baseline
+        \item But, undeniably, performs better on \textbf{smaller} models \textit{contrary} to the neural baseline
         \item Its performance and training time depends strongly on the automaton used
         \item Also, it seems to be performing better for more compact automata
         \end{itemize}
@@ -1294,10 +1295,17 @@ Actions available for the \colorbf{agents}:
 \begin{frame}{Future Work}
     \begin{itemize}
         \setlength{\itemsep}{13pt}
-        \item
+        \item Try our NeSy method on \textbf{other}, not as imbalanced, datasets
+        \item Investigate scalability regarding \textbf{sequence length}
+        \item Try other complex event recognition \textbf{architectures}, \textit{e.g., transformers}
+        \item More thorough check of the \textbf{relation} between automata and NeSy's performance
+        \item Of course, \textbf{joint training}
         \end{itemize}
     \end{frame}
- 
+
+
+\section{The End}
+
 \begin{frame}
     \begin{center}
         \huge \colorbf{Thank you!} 
