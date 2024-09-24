@@ -287,7 +287,7 @@ NCSR Demokritos \& University of Piraeus}
             \setlength{\itemsep}{4pt}
                 \item KR has \textcolor{green!70!black}{strong theoretical foundations}, with analyses of expressivity, \textbf{\textit{tractability}}, their trade-offs, and the combination of multiple representations
                 \item KR often struggles to deliver the desired  \textcolor{red!90!black}{performance} on practical tasks
-                \item ML excels in \textcolor{green!70!black}{performance} but lacks \textcolor{red!90!black}{explainability} and reasoning behind its results
+                \item ML excels in \textcolor{green!70!black}{performance} but lacks \textcolor{red!90!black}{explainability} and reasoning behind its results [XAI]
             \end{itemize}
         \item \colorbf{Goals}: more \textbf{reliable}, \textbf{explainable} models with the ability to \textbf{generalize} to out-of-distribution data and require \textbf{fewer} training examples
         \item This integration is challenging $\rightarrow$ most of the SOTA methods are applied to toy tasks
@@ -342,7 +342,7 @@ NCSR Demokritos \& University of Piraeus}
     \end{itemize}
 \end{frame}
 
-
+\iffalse
 \begin{frame}{Tractable Boolean Circuits - Example} % forgive me for using electrical engineering terms
     \begin{columns}
         \begin{column}{0.4\textwidth}
@@ -416,7 +416,7 @@ NCSR Demokritos \& University of Piraeus}
         \end{column}
     \end{columns}
 \end{frame}
-
+\fi
 
 \begin{frame}{NeSy Inference and Training}
     \begin{itemize}
@@ -467,7 +467,7 @@ NCSR Demokritos \& University of Piraeus}
             \setlength{\itemsep}{4pt}
             \item the label associated with the \textbf{agent} \textit{e.g. “Pedestrian”}
             \item the \textbf{action(s)} the agent is doing \textit{e.g., “Moving Away”} 
-            \item the semantic \textbf{location(s)} where the agent is placed \textit{e.g., “Incoming Lane”}
+            \item the \textbf{semantic location(s)} where the agent is placed \textit{e.g., “Incoming Lane”}
         \end{itemize}
         \item Regarding AV itself, we only know its \textbf{ego-action}
     \end{itemize}
@@ -754,8 +754,7 @@ Actions available for the \colorbf{agents}:
     \begin{itemize}
         \setlength{\itemsep}{13pt}
         \item To generate the positive instances, we first chose a  maximum sequence length of 10
-        \item Then, from the overtake instance we got chunks of frames of \textbf{minimum length 6} and\textbf{ maximum 10} with 5 frames in between the chunks (less for smaller instances) 
-        \item \textit{Note:} using sliding window worsened generalization
+        \item Then, from the overtake instance we got chunks of frames of \textbf{minimum length 6} and\textbf{ maximum 10} with 5 frames in between the chunks (less for smaller instances)
         \item This process resulted in \textcolor{umBlueLighter}{92 positive instances}  which all end with an overtake action
     \end{itemize}
 \end{frame}
@@ -962,18 +961,11 @@ Actions available for the \colorbf{agents}:
 \begin{frame}{Neural Component}
  % Networks that will be the neural part of our integration
     \begin{itemize}
-        \setlength{\itemsep}{10pt}
+        \setlength{\itemsep}{13pt}
         \item A \textbf{single NN} takes as input a \textbf{video} and \colorbf{ bounding boxes of 2 agents} \colorbf{\textit{per frame}}, predicting their \textbf{action} and \textbf{semantic location} (uni-label supervision)
         \item It comprises two modules: \textbf{action recognition} and \textbf{semantic location recognition}
         \item The semantic location recognition module is a simple \textcolor{umBlueLighter}{2D-Convolution} architecture
         \item The action recognition module utilizes both \textcolor{umBlueLighter}{2D} and \textcolor{umBlueLighter}{3D-Convolution} architectures for comparative experiments in NeSy
-        \item Why not (a) other architectures or (b) pre-trained models?  
-    \vspace{5pt}
-    \begin{itemize}
-        \setlength{\itemsep}{3pt}
-        \item (a) Parameter count skyrockets;
-        \item (b) Results are similar
-    \end{itemize}
     \end{itemize}
 \end{frame}
 
