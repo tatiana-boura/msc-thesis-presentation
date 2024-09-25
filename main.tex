@@ -31,7 +31,7 @@
 NCSR Demokritos \& University of Piraeus}
 \titlebackground{fqsstyle/assets/gambar-um.jpg}
 \author{\textcolor{umBlueLighter}{Tatiana Boura}} % Your name
-\institute[NCSR Demokritos]
+\institute[NCSR Demokritos \& University of Piraeus]
 {\noindent
     Supervisor: \textcolor{umBlueLighter}{Nikos Katzouris}\par
     \vspace{1em}
@@ -153,7 +153,7 @@ NCSR Demokritos \& University of Piraeus}
             \vspace{0.6em}
             \begin{itemize}
             \setlength{\itemsep}{4pt}
-                \item Patterns are typically defined in a declarative language and then translated into automata
+                %\item Patterns are typically defined in a declarative language and then translated into automata
                 \item The automaton processes a stream of simple events, changing states when predicates on outgoing transitions from the current state are satisfied
                 \item A complex event is detected whenever the stream reaches a \textbf{final state}
             \end{itemize}
@@ -167,7 +167,7 @@ NCSR Demokritos \& University of Piraeus}
         \item In literature tasks within the autonomous driving domain are not described in CER terms, but they \textit{can be}:  \\
         \vspace{0.6em}
         \begin{center}
-         A \textbf{large volume} of sensor data must be processed \textbf{rapidly}, \textbf{efficiently}, and \textbf{robustly} to detect \textbf{events} following specific \textbf{sequences} of events (\textit{e.g., sudden braking}).
+         A \textbf{large volume} of sensor data must be processed \textbf{rapidly}, \textbf{efficiently}, and \textbf{robustly} to detect \textbf{events} following specific \textbf{sequences} of events (\textit{e.g., sudden braking})
           \end{center}
         \item \textcolor{umBlueLighter}{Why CER?} Because $\dots$
         \vspace{0.6em}
@@ -701,7 +701,7 @@ Actions available for the \colorbf{agents}:
 \begin{frame}{Motivation for the rest of the Background}
     \begin{itemize}
         \setlength{\itemsep}{12pt}
-        \item Our goal is to perform CER on \textbf{sub-symbolic} %(distributed, numerical representations less transparent to human understanding)
+        \item Our goal is to perform CER on \textbf{sub-symbolic} data%(distributed, numerical representations less transparent to human understanding)
         \item So, we use NNs for the sub-symbolic video input (\textit{simple events}) and allow pattern matching (\textit{complex events}) to be handled by the symbolic part
         \item The challenge lies in the alignment of the NN with the automata (\textcolor{umBlueLighter}{NeSy integration})
         \item The alignment does not only refer to inference, but also \textbf{training} (distant supervision)
@@ -721,7 +721,7 @@ Actions available for the \colorbf{agents}:
     \begin{itemize}
         \setlength{\itemsep}{13pt}
         \item As we said, automata are often chosen as computational models for CER systems
-        \item \textcolor{umBlueLighter}{Why automata in this thesis?} For the probabilistic differentiable inference in the NeSy component we consider \textbf{probabilistic automata} that are transformed into Markov chains at inference/learning time.
+        \item \textcolor{umBlueLighter}{Why automata in this thesis?} For the probabilistic differentiable inference in the NeSy component we consider \textbf{probabilistic automata} that are transformed into Markov chains at inference/learning time
     \end{itemize}
 \end{frame}
 
@@ -796,7 +796,7 @@ Actions available for the \colorbf{agents}:
             \begin{itemize}
             \setlength{\itemsep}{4pt}
                 \item Unlike traditional FAs, SFAs can incorporate background knowledge through predicates
-                \item SFAs allow for the use of a solver, which provides \textbf{logical facts}, includes \textbf{domain-specific axioms} and a \textbf{full-fledged inference engine} 
+                %\item SFAs allow for the use of a solver, which provides \textbf{logical facts}, includes \textbf{domain-specific axioms} and a \textbf{full-fledged inference engine}
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -855,8 +855,8 @@ Actions available for the \colorbf{agents}:
 \begin{frame}{Probabilistic Inference and Weighted Model Counting}
 %We borrow ideas from Statistical Relational Learning and Artificial Intelligence, which combines\\ \hspace{1em} logical and probabilistic reasoning
     \begin{itemize}
-        \setlength{\itemsep}{11pt}
-        \item In probabilistic reasoning, a scenario is modeled using a joint probability distribution over random variables, which is then used to answer probabilistic queries % finite domain random vars
+        \setlength{\itemsep}{13pt}
+        %\item In probabilistic reasoning, a scenario is modeled using a joint probability distribution over random variables, which is then used to answer probabilistic queries % finite domain random vars
         \item A procedure to perform probabilistic queries is \colorbf{Weighted Model Counting (WMC)}
         \item Given a probabilistic program, WMC \textbf{counts the solutions of a logical formula}, assigning each a \textbf{weight} based on importance or likelihood
         \item \textcolor{umBlueLighter}{How is it relevant to probabilistic inference?} It computes the probability of outcomes based on the weights of different models/interpretations
@@ -1061,7 +1061,8 @@ Actions available for the \colorbf{agents}:
         \item It comprises two modules: \textbf{action recognition} and \textbf{semantic location recognition}
         \item The semantic location recognition module is a simple \textcolor{umBlueLighter}{2D-Convolution} architecture
         \item The action recognition module utilizes both \textcolor{umBlueLighter}{2D} and \textcolor{umBlueLighter}{3D-Convolution} architectures for comparative experiments in NeSy
-    \end{itemize}
+        \item \textbf{Parameter differences}: \textit{392,900} [2D-CNN] \& \textit{9,990,000} [3D-CNN]
+     \end{itemize}
 \end{frame}
 
 \begin{frame}{Probabilistic Inference and Training}
@@ -1093,7 +1094,6 @@ Actions available for the \colorbf{agents}:
     \item We evaluated NeSy \textbf{for all 3 automata} against \textcolor{umBlueLighter}{purely neural models}
     \item These models share the same architecture \textit{but} use LSTM for temporal modeling
     \item For action recognition, we used 2D and 3D-CNNs to assess performance across networks with varying trainable parameters
-    \item \textbf{Parameter differences}: NeSy has \textit{392,900} [2D-CNN] \& \textit{9,990,000} [3D-CNN]
     \item We also tested different \textbf{loss functions} and methods for handling the NeSy model's \textbf{probability distributions}
 \end{itemize}
 \end{frame}
@@ -1101,19 +1101,31 @@ Actions available for the \colorbf{agents}:
 \begin{frame}{Loss Functions}
     \begin{itemize}
     \setlength{\itemsep}{12pt}
-    \item The dataset is highly \textbf{imbalanced}
-    \item We initially used weighted BCE, yielding suboptimal results
-    \item We then switched to \colorbf{focal loss}, which down-weights easy examples and emphasizes difficult ones
+    \item The dataset is very \textbf{imbalanced} \& we initially used weighted BCE (suboptimal results)
+    \item We switched to \colorbf{focal loss}, which down-weights easy examples and emphasizes difficult ones
+     $$\text{Focal Loss} = - \alpha_t \cdot (1 - p_t)^\gamma \cdot \log(p_t),$$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Loss Functions}% Adjust width as needed}
+    %\vspace{-2em}
+
+    \begin{itemize}
+    \setlength{\itemsep}{12pt}
     \item The NeSy component outputs a \textcolor{umBlueLighter}{probability distribution} over automaton states
     \item We explore two methods:
     \vspace{5pt}
     \begin{itemize}
         \setlength{\itemsep}{3pt}
-        \item Utilize only the \textbf{final state probability} as the prediction
-        \item Compute the \textbf{Kolmogorov-Smirnov distance} between the state distribution and (0,0,0,1)
+        \item Utilize only the \textbf{final state probability} as the prediction, \textit{or}
+        \item Compute the \textbf{Kolmogorov-Smirnov (KS) distance} between the final state distribution and the state distribution that accumulates all mass in the final state [(0,0,0,1)\textcolor{red}{$^\ast$}]
     \end{itemize}
+        \item \colorbf{Why do the second one?} We want confident predictions
+        \item \textit{Why KS and not KL-Divergence?} KL can be up to $\infty$, but KS ranges in $[0,1]$
     \end{itemize}
+    \hfill \includegraphics[width=0.3\textwidth]{contents/images/automaton}
 \end{frame}
+
 
 \iffalse
 \begin{frame}{Results - Predictions}
