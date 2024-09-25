@@ -156,7 +156,7 @@ NCSR Demokritos \& University of Piraeus}
                 \item $\dots$ sometimes we want to use `known' patterns of an event
                 \item $\dots$ when we learn patterns, we need them to be interpretable
             \end{itemize}
-        \item We will focus on tasks that require deep vision % and not for example the robotics stuff
+        \item We will focus on perception tasks that require deep vision % and not for example the robotics stuff
     \end{itemize}
 \end{frame}
 
@@ -279,7 +279,7 @@ NCSR Demokritos \& University of Piraeus}
 
 \begin{frame}{Neuro-symbolic Artificial Intelligence}
     \begin{itemize}
-        \setlength{\itemsep}{12pt}
+        \setlength{\itemsep}{13pt}
         \item Neuro-symbolic Artificial Intelligence (NeSy) aims to merge \textbf{Knowledge Representation} (KR) and \textbf{Machine Learning} (ML)
         \item \colorbf{Motivation}: Leverage their respective strengths while mitigating their weaknesses
         \vspace{0.6em}
@@ -290,7 +290,6 @@ NCSR Demokritos \& University of Piraeus}
                 \item ML excels in \textcolor{green!70!black}{performance} but lacks \textcolor{red!90!black}{explainability} and reasoning behind its results [XAI]
             \end{itemize}
         \item \colorbf{Goals}: more \textbf{reliable}, \textbf{explainable} models with the ability to \textbf{generalize} to out-of-distribution data and require \textbf{fewer} training examples
-        \item This integration is challenging $\rightarrow$ most of the SOTA methods are applied to toy tasks
     \end{itemize}
 \end{frame}
 
@@ -322,7 +321,7 @@ NCSR Demokritos \& University of Piraeus}
 \begin{frame}{Tractable Boolean Circuits}
     \begin{itemize}
         \setlength{\itemsep}{12pt}
-        \item WMC is generally intractable, thus exact some WMC use \textbf{knowledge compilation}
+        \item WMC is generally intractable, thus exact solvers use \textbf{knowledge compilation}
         \item Knowledge compilation maps the logical theory to a \textit{tractable representation}: a \colorbf{circuit}
         \item \textcolor{umBlueLighter}{Tractable Boolean Circuits} allow WMC queries to be answered in lin-time wrt. the size of the circuit 
         \item Their theory is based on \textbf{Negation Normal Form} (NNF) circuits, consisting of AND-gates, OR-gates, and inverters (which can only connect to circuit variables)
@@ -331,6 +330,7 @@ NCSR Demokritos \& University of Piraeus}
     \end{itemize}
 \end{frame}
 
+\iffalse
 \begin{frame}{Tractable Boolean Circuits - Properties}
     \begin{itemize}
         \setlength{\itemsep}{12pt}
@@ -338,8 +338,72 @@ NCSR Demokritos \& University of Piraeus}
         \item \colorbf{Determinism}: at most one input of an OR-gate can be evaluated to \texttt{True} for any given circuit input [MajSAT]
         \item \colorbf{Smoothness}: All circuit fragments feeding into an OR-gate to reference the same variables
         \item If NNF circuits are \textbf{decomposable}, \textbf{deterministic} and \textbf{smooth} they allow for solving the WMC problem in linear time
-        \item \textit{Disclaimer}: We will use SDDs that are an extension of the previous
     \end{itemize}
+\end{frame}
+\fi
+
+\begin{frame}{Tractable Boolean Circuits - Properties} % forgive me for using electrical engineering terms
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            \begin{figure}[H]
+                \centering
+                \scalebox{0.73}{
+                    \begin{circuitikz}[rotate=90,transform shape] \draw
+                        % AND gate
+                        (0,0) node[or port] (and1) {}
+                        (0,-2) node[or port] (and2) {}
+
+                        % OR gate
+                        (2,-1) node[and port] (or1) {}
+
+                        (-2,1.5) node[and port] (and3) {}
+                        (-2,0) node[and port] (and4) {}
+                        (-2,-1.5) node[and port] (and5) {}
+                        (-2,-3) node[and port] (and6) {}
+
+                        (-4,1) node[or port] (or2) {}
+                        (-4,-3.5) node[or port] (or3) {}
+
+                        (and3.in 1) node[below, rotate=270] (a) {$L$}
+                        (or2.in 1) node[below, rotate=270] (b) {$K$}
+                        (or2.in 2) node[below, rotate=270] (c) {$\neg K$}
+                        (and4.in 1) node[below, rotate=270] (d) {$\neg L$}
+                        (and4.in 2) node[below, rotate=270] (e) {$\bot$}
+
+                        (and5.in 1) node[below, rotate=270] (f) {$\neg P$}
+                        (and5.in 2) node[below, rotate=270] (g) {$\neg A$}
+                        (and6.in 1) node[below, rotate=270] (h) {$P$}
+
+                        (or3.in 1) node[below, rotate=270] (i) {$A$}
+                        (or3.in 2) node[below, rotate=270] (j) {$\neg A$};
+
+                        \draw[black] (and1.out) -- ++(0.5,0) |- (or1.in 1);
+                        \draw[black] (and2.out) -- ++(0.5,0) |- (or1.in 2);
+
+                        \draw[black] (and3.out) -- ++(0.5,0) |- (and1.in 1);
+                        \draw[black] (and4.out) -- ++(0.5,0) |- (and1.in 2);
+
+                        \draw[black] (and5.out) -- ++(0.5,0) |- (and2.in 1);
+                        \draw[black] (and6.out) -- ++(0.5,0) |- (and2.in 2);
+
+                        \draw[black] (or2.out) -- ++(0.5,0) |- (and3.in 2);
+                        \draw[black] (or3.out) -- ++(0.5,0) |- (and6.in 2);
+                    \end{circuitikz}
+                }
+            \end{figure}
+        \end{column}
+
+        % Right column with the itemized list
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+        \setlength{\itemsep}{13pt}
+        \item \colorbf{Decomposability}: Circuit fragments feeding into an AND-gate cannot share variables
+        \item \colorbf{Determinism}: at most one input of an OR-gate can be evaluated to \texttt{True} for any given circuit input
+        \item \colorbf{Smoothness}: All circuit fragments feeding into an OR-gate to reference the same variables
+        \item If NNF circuits are \textbf{decomposable}, \textbf{deterministic} and \textbf{smooth} they allow for solving the WMC problem in linear time
+    \end{itemize}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \iffalse
@@ -442,23 +506,18 @@ NCSR Demokritos \& University of Piraeus}
     \end{frame}
 }
 
-\begin{frame}{ROAD-R Dataset}
+\begin{frame}{ROAD Dataset}
     \begin{itemize}
-        \setlength{\itemsep}{12pt}
+        \setlength{\itemsep}{13pt}
         \item There is a plethora of autonomous driving vision datasets
         \item ROAD is a real-world dataset with \textcolor{umBlueLighter}{22}, \textcolor{umBlueLighter}{8-minute} long videos from the view of an \textbf{autonomous vehicle (AV)}
-        \item The videos were recorded over the period of November 2014 to December 2015, by traversing through central Oxford 
-        \item  ROAD-R is enhanced with \textcolor{umBlueLighter}{243} requirements in propositional logic to capture \textbf{background knowledge} 
-        \vspace{4pt}
-        \begin{itemize}
-            \item \textit{e.g. $\neg (red\_light \wedge green\_light)$ }$\equiv$ a traffic light cannot simultaneously display \textcolor{red}{red} \&  \textcolor{green!60!black}{green} 
-        \end{itemize}
+        \item The videos were recorded over the period of November 2014 to December 2015, by traversing through central Oxford
         \item The total number of annotated frames is $\sim$ 122K ($\sim$ 12 frame/sec)
     \end{itemize}
 \end{frame}
 
 
-\begin{frame}{ROAD-R Dataset}
+\begin{frame}{ROAD Dataset}
     \begin{itemize}
         \setlength{\itemsep}{13pt}
         \item Each video is annotated with a \textcolor{umBlueLighter}{series of bounding boxes} (per frame) \textbf{linked in time} including:
@@ -704,7 +763,7 @@ Actions available for the \colorbf{agents}:
         \item CER on video data
         \item NN for actions and locations, symbolic automaton for `overtake' recognition
         \item `Overtake' patterns are not available $\rightarrow$ we need to \textbf{learn them}
-        \item From ROAD-R, we derive a \textbf{symbolic dataset} to learn `overtake' automata
+        \item From ROAD, we derive a \textbf{symbolic dataset} to learn `overtake' automata
         \item We translate the automata to probabilistic automata through Markov chains
         \item The probabilistic program is compiled to a differentiable circuit 
         \item Through the circuit probabilistic queries are answered
@@ -729,7 +788,7 @@ Actions available for the \colorbf{agents}:
 \begin{frame}{Sequential Datasets}
     \begin{itemize}
         \setlength{\itemsep}{12pt}
-        % To lew kataxristika ROAD-R
+        % To lew kataxristika ROAD
         \item  From ROAD, we created a \colorbf{symbolic} sequential dataset and a \colorbf{sub-symbolic} one 
         \item  They model whether the example involves the AV (\textit{we use the subset that does not consider the AV}) % as it is adifferent vision problem
         \item The datasets consist of sequences  and provide \textcolor{umBlueLighter}{2 agents'}:
@@ -884,7 +943,7 @@ Actions available for the \colorbf{agents}:
         }
 
         \column{0.5\textwidth}
-         \includegraphics[width=\textwidth]{contents/images/autom_1.png}
+         \includegraphics[width=\textwidth]{contents/images/autom_1 - Copy.png}
     \end{columns}
 \end{frame}
 
@@ -939,7 +998,7 @@ Actions available for the \colorbf{agents}:
 			\end{tikzpicture}
         }
         \column{0.52\textwidth}
-         \includegraphics[width=\textwidth]{contents/images/autom_3.png}
+         \includegraphics[width=\textwidth]{contents/images/autom_3 - Copy.png}
     \end{columns}
 \end{frame}
 
