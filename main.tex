@@ -95,7 +95,7 @@ NCSR Demokritos \& University of Piraeus}
     \end{itemize}
 \end{frame}
 
-\section{Background}
+\section{CER}
 {
     \setbeamertemplate{headline}{}
     \begin{frame}
@@ -146,24 +146,24 @@ NCSR Demokritos \& University of Piraeus}
 
 \begin{frame}{Complex Event Recognition (CER)}
     \begin{itemize}
-        \setlength{\itemsep}{12pt}
+        \setlength{\itemsep}{17pt}
         \item CER, or complex event pattern matching, refers to the process of detecting patterns in streams of continuously arriving timestamped `event' data from distributed sources
         \item \colorbf{Key Concept}: These \textcolor{umBlueLighter}{simple events} \textit{make up} \textcolor{umBlueLighter}{complex events}
         \item Event streams are sequences of events $\rightarrow$ automata are common computational models for CER systems
-            \vspace{0.6em}
-            \begin{itemize}
-            \setlength{\itemsep}{4pt}
+        %    \vspace{0.6em}
+        %    \begin{itemize}
+        %    \setlength{\itemsep}{4pt}
                 %\item Patterns are typically defined in a declarative language and then translated into automata
-                \item The automaton processes a stream of simple events, changing states when predicates on outgoing transitions from the current state are satisfied
-                \item A complex event is detected whenever the stream reaches a \textbf{final state}
-            \end{itemize}
+        %        \item The automaton processes a stream of simple events, changing states when predicates on outgoing transitions from the current state are satisfied
+        %        \item A complex event is detected whenever the stream reaches a \textbf{final state}
+        %    \end{itemize}
     \end{itemize}
 \end{frame}
 
 \begin{frame}{CER in Autonomous Driving}
     \begin{itemize}
         \setlength{\itemsep}{12pt}
-        \item Self-driving cars have been receiving attention for quite some time % money and vast research into this
+        %\item Self-driving cars have been receiving attention for quite some time % money and vast research into this
         \item In literature tasks within the autonomous driving domain are not described in CER terms, but they \textit{can be}:  \\
         \vspace{0.6em}
         \begin{center}
@@ -206,7 +206,7 @@ NCSR Demokritos \& University of Piraeus}
 
 \begin{frame}{ROAD Dataset}
     \begin{itemize}
-        \setlength{\itemsep}{13pt}
+        \setlength{\itemsep}{15pt}
         \item Each video is annotated with a \textcolor{umBlueLighter}{series of bounding boxes} (per frame) \textbf{linked in time} including:
         \vspace{4pt}
         \begin{itemize}
@@ -359,7 +359,7 @@ Actions available for the \colorbf{agents}:
 
 \begin{frame}{Some `Overtake' Information}
     \begin{itemize}
-        \setlength{\itemsep}{10pt}
+        \setlength{\itemsep}{15pt}
         \item  The unique overtake events in the dataset are \textcolor{umBlueLighter}{28 (+2)} in total :
         \vspace{4pt}
         \begin{itemize}
@@ -462,7 +462,7 @@ Actions available for the \colorbf{agents}:
 
 \begin{frame}{`Overtake' patterns}
        \begin{itemize}
-        \setlength{\itemsep}{13pt}
+        \setlength{\itemsep}{16pt}
         \item `Overtake' patterns are not available $\rightarrow$ we need to \textbf{learn them}
         \item From ROAD, we derive a \textbf{symbolic dataset} to learn `overtake' automata
     \end{itemize}
@@ -507,7 +507,7 @@ Actions available for the \colorbf{agents}:
 \begin{frame}{Positive Instances}
 % Range is from 6 to 10 for a reason
     \begin{itemize}
-        \setlength{\itemsep}{13pt}
+        \setlength{\itemsep}{16pt}
         \item To generate the positive instances, from the overtake instances we got chunks of frames of \textbf{minimum length 6} and\textbf{ maximum 10} %with 5 frames in between the chunks (less for smaller instances)
         \item This process resulted in \textcolor{umBlueLighter}{92 positive instances}  which all include and end with an overtake action
     \end{itemize}
@@ -516,9 +516,9 @@ Actions available for the \colorbf{agents}:
 
 \begin{frame}{Negative Instances}
     \begin{itemize}
-        \setlength{\itemsep}{10pt}
+        \setlength{\itemsep}{13pt}
         \item  In theory, all pairs of agents not involved in an overtake can be a negative example
-        \item However, we investigated \textbf{close negatives}; negatives that look like they are going to lead to an overtake, but will not
+        \item We investigated \textbf{close negatives}
         \item So, we collected \textbf{all action pairs that precede} an overtake and sampled agent-pair sequences that perform these actions, but \textbf{are not involved in an overtake}
         \item This resulted in \textcolor{umBlueLighter}{$\sim$ 5,500 negative} instances
     \end{itemize}
@@ -586,7 +586,7 @@ Actions available for the \colorbf{agents}:
 
 \begin{frame}{Learn `overtake' Patterns}
     \begin{itemize}
-        \setlength{\itemsep}{13pt}
+        \setlength{\itemsep}{15pt}
         \item For `overtake' incidents, patterns are learned from the symbolic dataset, simulating \textbf{expert knowledge}
         \item We use \textit{ASAL framework} to learn symbolic automata from data
         \item The \textcolor{umBlueLighter}{entire dataset} was used for learning, instead of training/testing splits, to mimic expert-provided background knowledge (\textit{our primary goal is NeSy integration})
@@ -637,7 +637,8 @@ Actions available for the \colorbf{agents}:
         }
 
         \column{0.5\textwidth}
-         \includegraphics[width=\textwidth]{contents/images/autom_1 - Copy.png}
+         \includegraphics[width=\textwidth]{contents/images/autom_1.png}
+        %\includegraphics[width=\textwidth]{contents/images/autom_1 - Copy.png}
     \end{columns}
 \end{frame}
 
@@ -664,7 +665,7 @@ Actions available for the \colorbf{agents}:
 			\end{tikzpicture}
         }
         \column{0.52\textwidth}
-         \includegraphics[width=\textwidth]{contents/images/autom_2.png}
+         \includegraphics[width=\textwidth]{contents/images/autom_2 - Copy.png}
     \end{columns}
 \end{frame}
 
@@ -696,7 +697,21 @@ Actions available for the \colorbf{agents}:
     \end{columns}
 \end{frame}
 
-
+\section{Road to NeSy}
+{
+    \setbeamertemplate{headline}{}
+    \begin{frame}
+        \sectionpage%
+        %%%%%%%%%%%%%%%%%%%%%%
+        %% Featured Image
+        %%
+        \begin{tikzpicture}[overlay,remember picture]
+            \node[left=2cm] at (current page.2){%
+                \includegraphics[width=5.5cm]{contents/images/04123.jpg}
+            };
+        \end{tikzpicture}
+    \end{frame}
+}
 
 \begin{frame}{Motivation for the rest of the Background}
     \begin{itemize}
@@ -725,7 +740,7 @@ Actions available for the \colorbf{agents}:
     \end{itemize}
 \end{frame}
 
-
+\iffalse
 \begin{frame}{Finite Automata}
     \begin{columns}
         % Left column: Finite Automaton definition
@@ -757,6 +772,7 @@ Actions available for the \colorbf{agents}:
 
     \end{columns}
 \end{frame}
+\fi
 
 \iffalse
 \begin{frame}{Finite Automata [Example]}
@@ -858,8 +874,9 @@ Actions available for the \colorbf{agents}:
         \setlength{\itemsep}{13pt}
         %\item In probabilistic reasoning, a scenario is modeled using a joint probability distribution over random variables, which is then used to answer probabilistic queries % finite domain random vars
         \item A procedure to perform probabilistic queries is \colorbf{Weighted Model Counting (WMC)}
-        \item Given a probabilistic program, WMC \textbf{counts the solutions of a logical formula}, assigning each a \textbf{weight} based on importance or likelihood
-        \item \textcolor{umBlueLighter}{How is it relevant to probabilistic inference?} It computes the probability of outcomes based on the weights of different models/interpretations
+        %\item Given a probabilistic program, WMC \textbf{counts the solutions of a logical formula}, assigning each a \textbf{weight} based on importance or likelihood
+        %\item \textcolor{umBlueLighter}{How is it relevant to probabilistic inference?} It computes the probability of outcomes based on the weights of different models/interpretations
+        \item It computes the probability of outcomes based on the weights of different models/interpretations
     \end{itemize}
 \end{frame}
 
@@ -868,9 +885,8 @@ Actions available for the \colorbf{agents}:
         \setlength{\itemsep}{12pt}
         \item WMC is generally intractable, thus exact solvers use \textbf{knowledge compilation}
         \item Knowledge compilation maps the logical theory to a \textit{tractable representation}: a \colorbf{circuit}
-        \item \textcolor{umBlueLighter}{Tractable Boolean Circuits} allow WMC queries to be answered in lin-time wrt. the size of the circuit 
+        \item \textcolor{umBlueLighter}{Tractable Boolean Circuits} allow WMC queries to be answered in lin-time wrt. the size of the circuit \textit{when certain properties are imposed}
         \item Their theory is based on \textbf{Negation Normal Form} (NNF) circuits, consisting of AND-gates, OR-gates, and inverters (which can only connect to circuit variables)
-        \item  NNF circuits alone are not tractable, \textbf{\textit{but}} imposing certain properties enhance their tractability
         \item NNFs are \textbf{differentiable}, as they are composed of additions and multiplications
     \end{itemize}
 \end{frame}
@@ -887,6 +903,7 @@ Actions available for the \colorbf{agents}:
 \end{frame}
 \fi
 
+\iffalse
 \begin{frame}{Tractable Boolean Circuits - Properties} % forgive me for using electrical engineering terms
     \begin{columns}
         \begin{column}{0.4\textwidth}
@@ -950,6 +967,7 @@ Actions available for the \colorbf{agents}:
         \end{column}
     \end{columns}
 \end{frame}
+\fi
 
 \iffalse
 \begin{frame}{Tractable Boolean Circuits - Example} % forgive me for using electrical engineering terms
@@ -1100,10 +1118,11 @@ Actions available for the \colorbf{agents}:
 
 \begin{frame}{Loss Functions}
     \begin{itemize}
-    \setlength{\itemsep}{12pt}
+    \setlength{\itemsep}{15pt}
     \item The dataset is very \textbf{imbalanced} \& we initially used weighted BCE (suboptimal results)
     \item We switched to \colorbf{focal loss}, which down-weights easy examples and emphasizes difficult ones
-     $$\text{Focal Loss} = - \alpha_t \cdot (1 - p_t)^\gamma \cdot \log(p_t),$$
+     $$\text{FL}(p_t) = - \alpha_t \cdot (1 - p_t)^\gamma \cdot \log(p_t),$$
+        where $p_t=p$ if the true label is 1, and $p_t=1-p$ if the true label is 0
     \end{itemize}
 \end{frame}
 
@@ -1112,15 +1131,15 @@ Actions available for the \colorbf{agents}:
 
     \begin{itemize}
     \setlength{\itemsep}{12pt}
-    \item The NeSy component outputs a \textcolor{umBlueLighter}{probability distribution} over automaton states
-    \item We explore two methods:
+    \item NeSy outputs a \textcolor{umBlueLighter}{probability distribution} over automaton states, \textit{we explore}:
     \vspace{5pt}
     \begin{itemize}
         \setlength{\itemsep}{3pt}
         \item Utilize only the \textbf{final state probability} as the prediction, \textit{or}
-        \item Compute the \textbf{Kolmogorov-Smirnov (KS) distance} between the final state distribution and the state distribution that accumulates all mass in the final state [(0,0,0,1)\textcolor{red}{$^\ast$}]
+        \item Compute the \textbf{Kolmogorov-Smirnov distance ($d_{KS}$)} between the final state distribution and the state distribution that accumulates all mass in the final state [(0,0,0,1)\textcolor{red}{$^\ast$}] to
+        get \colorbf{confident predictions}
     \end{itemize}
-        \item \colorbf{Why do the second one?} We want confident predictions
+        \item $d_{KS}$ quantifies the maximum difference between the CDFs of two probability distributions: $$d_{KS}(P,Q) = sup_x \mid CDF_P(x) - CDF_Q(x)\mid $$
         \item \textit{Why KS and not KL-Divergence?} KL can be up to $\infty$, but KS ranges in $[0,1]$
     \end{itemize}
     \hfill \includegraphics[width=0.3\textwidth]{contents/images/automaton}
@@ -1270,8 +1289,8 @@ Actions available for the \colorbf{agents}:
 		\multirow{-3}{*}{Automaton} & \cellcolor{umYellow!80}\#transitions & \cellcolor{umYellow!80}avg. literals/transition & \cellcolor{umYellow!80}\#unique simple events & \cellcolor{umBlueLighter}2D & \cellcolor{umBlueLighter}3D \\
 		\midrule
 		1 & 10 & 1.2 & 4/14 & \textbf{0.637} & \textbf{0.564} \\
-		2 & 12 & 1.6 & 7/14 & 0.542 & 0.391 \\
-		3 & 14 & 1.6 & 11/12 & 0.523 & 0.574\\
+		2 & 12 & 3.25 & 7/14 & 0.542 & 0.391 \\
+		3 & 14 & 3.85 & 11/12 & 0.523 & 0.574\\
 		\bottomrule
 	\end{tabular}
 	}
@@ -1295,19 +1314,20 @@ Actions available for the \colorbf{agents}:
 \begin{frame}{Results - Training Times / Epoch}
    \begin{table}[H]
 	\scalebox{0.95}{
-	\begin{tabular}{cccccc}
+	\begin{tabular}{ccccccc}
 		\toprule
-		& \multicolumn{3}{c}{\cellcolor{umYellow!80}\textbf{Statistics}} & \cellcolor{umOrange}\textbf{Baseline} & \cellcolor{umBlueLighter}\textbf{NeSy} \\
-		\multirow{-3}{*}{Automaton} & \cellcolor{umYellow!80}\#trans & \cellcolor{umYellow!80}avg. lit/trans & \cellcolor{umYellow!80}\#unique simple ev. & \cellcolor{umOrange} tt/e & \cellcolor{umBlueLighter} tt/e \\
+		& \multicolumn{4}{c}{\cellcolor{umYellow!80}\textbf{Statistics}} & \cellcolor{umOrange}\textbf{Baseline} & \cellcolor{umBlueLighter}\textbf{NeSy} \\
+		\multirow{-3}{*}{Automaton} & \cellcolor{umYellow!80}\#trans & \cellcolor{umYellow!80}avg. lit/trans & \cellcolor{umYellow!80}\#unique simple ev. & \cellcolor{umYellow!80} SDD size & \cellcolor{umOrange} tt/e & \cellcolor{umBlueLighter} tt/e \\
 		\midrule
-		1 & 10 & 1.2 & 4/14 & 0.15 sec & \textbf{1.5 mins} \\
-		2 & 12 & 1.6 & 7/14 & 0.15 sec & \textbf{4.5 mins} \\
-		3 & 14 & 1.6 & 11/12 & 0.15 sec & \textbf{6 mins}\\
+		1 & 10 & 1.2 & 4/14 & 427 & 0.15 mins  &\textbf{1.5 mins} \\
+		2 & 12 & 3.25 & 7/14 & 565 & 0.15 mins   &\textbf{6 mins} \\
+		3 & 14 & 3.85 & 11/12 & 478 & 0.15 mins  &\textbf{4.5 mins}\\
 		\bottomrule
 	\end{tabular}
 	}
 \end{table}
 \end{frame}
+
 
 \iffalse
 \begin{frame}{Results - Simple event training}
