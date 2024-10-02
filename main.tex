@@ -558,7 +558,7 @@ Actions available for the \colorbf{agents}:
             \item No positive instances from the same augmentation of positive examples in both sets
             \item No negative instances from the same part of the video in both sets
         \end{itemize}
-        \item So, we reserved positives from some videos for training and used the rest for testing \textcolor{umBlueLighter}{\small (\textit{Why not for negatives? Again, computer vision!})}
+        \item We focused on testing with \colorbf{out-of-distribution} data
         \item We do a \%80/\%20 split with k-folds, resulting in 36 set pairs where 24 are useful
         \vspace{5pt}
         \begin{itemize}
@@ -717,7 +717,7 @@ Actions available for the \colorbf{agents}:
     \begin{itemize}
         \setlength{\itemsep}{12pt}
         \item Our goal is to perform CER on \textbf{sub-symbolic} data%(distributed, numerical representations less transparent to human understanding)
-        \item So, we use NNs for the sub-symbolic video input (\textit{simple events}) and allow pattern matching (\textit{complex events}) to be handled by the symbolic part
+        \item So, we use NNs for the sub-symbolic \textit{simple events} (action, location) and allow \textit{complex event} recognition (overtake) to be handled by the automaton
         \item The challenge lies in the alignment of the NN with the automata (\textcolor{umBlueLighter}{NeSy integration})
         \item The alignment does not only refer to inference, but also \textbf{training} (distant supervision)
         \item For training the NN, the whole system needs to be differentiable
@@ -1326,6 +1326,10 @@ Actions available for the \colorbf{agents}:
 	\end{tabular}
 	}
 \end{table}
+   \vspace{1em}
+\begin{itemize}
+\item NeSy's \textbf{time breakdown}: 40\% probabilistic inference, 40\% backpropagation, 20\% rest
+\end{itemize}
 \end{frame}
 
 
@@ -1350,15 +1354,46 @@ Actions available for the \colorbf{agents}:
 \end{frame}
 \fi
 
+\iffalse
 \begin{frame}{Results - \textcolor{umBlueLighter}{Simple} to \textcolor{umOrange}{Complex}}
 \begin{table}[H]
 	\centering
 	\scalebox{1.0}{
-		\begin{tabular}{l|cc}
+		\begin{tabular}{l|ccc}
 			\toprule
-			 & \cellcolor{umYellow!70} One-hot encoding & \cellcolor{umYellow!70} Large Probability Mass  (0.8) \\
+             & \multicolumn{2}{c}{\cellcolor{umBlueLighter!70!white} \textbf{True Label}} & \cellcolor{umYellow!70} \textbf{Pre-trained}\\
+			 & \cellcolor{umBlueLighter!70!white} 1-hot encoding & \cellcolor{umBlueLighter!70!white} Large Prob. Mass  (0.8) & \cellcolor{umYellow!70} Prob. Distribution (macro-avg)\\
 			\midrule
-			 \cellcolor[HTML]{FFFDF6}\textbf{F1-micro} & \textbf{0.947} &  \textbf{0.561}\\
+			 \cellcolor[HTML]{FFFDF6}\textbf{F1-micro} & \textbf{0.947} &  \textbf{0.561} & \textbf{0.026}\\
+			\bottomrule
+		\end{tabular}
+	}
+\end{table}
+\end{frame}
+\fi
+
+\begin{frame}{Results - \textcolor{umBlueLighter}{Simple} to \textcolor{umOrange}{Complex}}
+\begin{table}[H]
+	\centering
+	\scalebox{0.8}{
+		\begin{tabular}{cccc}
+			\toprule
+			& \cellcolor{umOrange}\textbf{Neural Baseline} & \cellcolor{umBlueLighter}\textbf{NeSy} & \cellcolor{umYellow}\textbf{Pre-trained + Automaton}\\
+			\multirow{-2}{*}{\begin{tabular}[c]{@{}l@{}}Data split \\ index\end{tabular}} & \cellcolor{umOrange} F1-micro & \cellcolor{umBlueLighter}F1-micro & \cellcolor{umYellow}F1-micro\\
+			\midrule
+			\multicolumn{3}{c}{\textit{\textbf{2D}}} \\
+			\midrule
+			1 & 0.485 & \textbf{0.632} & 0.0\\
+			2 & 0.3 & \textbf{0.649} & 0.0\\
+			3 & 0.446 & \textbf{0.649} & 0.0\\
+			4 & 0.457 & \textbf{0.612} & 0.0\\
+			\midrule
+			\multicolumn{3}{c}{\textit{\textbf{3D}}} \\
+			\midrule
+			1 & 0.549 & \textbf{0.657} & 0.214\\
+			2 & \textbf{0.541} & 0.342 & 0.0\\
+			3 & 0.474 &  \textbf{0.666} & 0.0\\
+			4 & 0.454 & \textbf{0.588} & 0.0\\
 			\bottomrule
 		\end{tabular}
 	}
@@ -1424,7 +1459,7 @@ Actions available for the \colorbf{agents}:
         \setlength{\itemsep}{13pt}
         \item Try our NeSy method on \textbf{other}, not as imbalanced, datasets
         \item Investigate scalability regarding \textbf{sequence length}
-        \item Try other complex event recognition \textbf{architectures}, \textit{e.g., transformers}
+        \item Try other simple event recognition \textbf{architectures}, \textit{e.g., transformers}
         \item More thorough check of the \textbf{relation} between automata and NeSy's performance
         \item Of course, \textbf{joint training}
         \end{itemize}
